@@ -420,6 +420,39 @@ void StatisticData::setStreakWin(bool value, Difficulty diff)
     }
 }
 
+int StatisticData::getGameNP(Difficulty diff) const {
+    switch (diff) {
+    case Easy:
+        return dataEasy.gameNP;
+        break;
+    case Normal:
+        return dataNormal.gameNP;
+        break;
+    case Hard:
+        return dataHard.gameNP;
+        break;
+    default:
+        return false;
+        break;
+    }
+}
+
+void StatisticData::setGameNP(int value, Difficulty diff) {
+    switch (diff) {
+    case Easy:
+        dataEasy.gameNP = value;
+        break;
+    case Normal:
+        dataNormal.gameNP = value;
+        break;
+    case Hard:
+        dataHard.gameNP = value;
+        break;
+    default:
+        break;
+    }
+}
+
 void StatisticData::clear(Difficulty diff) {
     switch (diff) {
     case Easy:
@@ -430,6 +463,7 @@ void StatisticData::clear(Difficulty diff) {
         dataEasy.maxLosingStreak = 0;
         dataEasy.streakNow = 0;
         dataEasy.streakWin = false;
+        dataEasy.gameNP = 0;
         for (int i = 0; i < 5; i++) {
             dataEasy.minTimeInMsec[i] = -1;
             dataEasy.minTimeGameYear[i] = -1;
@@ -445,6 +479,7 @@ void StatisticData::clear(Difficulty diff) {
         dataNormal.maxLosingStreak = 0;
         dataNormal.streakNow = 0;
         dataNormal.streakWin = false;
+        dataNormal.gameNP = 0;
         for (int i = 0; i < 5; i++) {
             dataNormal.minTimeInMsec[i] = -1;
             dataNormal.minTimeGameYear[i] = -1;
@@ -460,6 +495,7 @@ void StatisticData::clear(Difficulty diff) {
         dataHard.maxLosingStreak = 0;
         dataHard.streakNow = 0;
         dataHard.streakWin = false;
+        dataHard.gameNP = 0;
         for (int i = 0; i < 5; i++) {
             dataHard.minTimeInMsec[i] = -1;
             dataHard.minTimeGameYear[i] = -1;

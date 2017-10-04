@@ -4,16 +4,16 @@ DialogStatistic::DialogStatistic()
 {
     setWindowTitle("Statistics");
     setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint);
-    setFixedHeight(480);
+    setFixedHeight(510);
     setFixedWidth(400);
 
     layoutMain = new QGridLayout(this);
     tabWidget = new QTabWidget(this);
     tabWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     layoutMain->addWidget(tabWidget, 0, 0, 8, 4);
-    tableEasy = new QTableWidget(13, 2);
-    tableNormal = new QTableWidget(13, 2);
-    tableHard = new QTableWidget(13, 2);
+    tableEasy = new QTableWidget(14, 2);
+    tableNormal = new QTableWidget(14, 2);
+    tableHard = new QTableWidget(14, 2);
     tableTotal = new QTableWidget(4, 2);
     btnClear = new QPushButton("Clear all");
     btnOk = new QPushButton(tr("OK"));
@@ -90,8 +90,8 @@ void DialogStatistic::initLayout(QTableWidget *table, StatisticData::Difficulty 
     table->setShowGrid(false);
     table->setColumnWidth(0, 185);
     table->setColumnWidth(1, 185);
-    table->setSpan(7, 0, 1, 2);
-    for (int i = 0; i < 13; i++) {
+    table->setSpan(8, 0, 1, 2);
+    for (int i = 0; i < 14; i++) {
         table->setRowHeight(i, 30);
     }
 
@@ -125,22 +125,24 @@ void DialogStatistic::initLayout(QTableWidget *table, StatisticData::Difficulty 
         table->setItem(6, 0, new QTableWidgetItem(tr("Losing Streak now: ")));
     }
     table->setItem(6, 1, new QTableWidgetItem(tr("%1").arg(data->getStreakNow(diff))));
+    table->setItem(7, 0, new QTableWidgetItem(tr("No flag: ")));
+    table->setItem(7, 1, new QTableWidgetItem(tr("%1").arg(data->getGameNP(diff))));
 
-    table->setItem(7, 0, new QTableWidgetItem(tr("Best 5 games:")));
+    table->setItem(8, 0, new QTableWidgetItem(tr("Best 5 games:")));
     for (int i = 0; i < 5; i++) {
         if (data->getMinTimeInMsec(i, diff) == -1) {
-            table->setItem(8 + i, 0, new QTableWidgetItem(tr("")));
-            table->setItem(8 + i, 1, new QTableWidgetItem(tr("")));
+            table->setItem(9 + i, 0, new QTableWidgetItem(tr("")));
+            table->setItem(9 + i, 1, new QTableWidgetItem(tr("")));
         }
         else {
-            table->setItem(8 + i, 0, new QTableWidgetItem(tr("%1/%2/%3").arg(data->getMinTimeYear(i, diff)).arg(data->getMinTimeMonth(i, diff)).arg(data->getMinTimeDay(i, diff))));
+            table->setItem(9 + i, 0, new QTableWidgetItem(tr("%1/%2/%3").arg(data->getMinTimeYear(i, diff)).arg(data->getMinTimeMonth(i, diff)).arg(data->getMinTimeDay(i, diff))));
             msec = data->getMinTimeInMsec(i, diff) % 1000;
             secTemp = data->getMinTimeInMsec(i, diff) / 1000;
             sec = secTemp % 60;
             minTemp = secTemp / 60;
             min = minTemp % 60;
             hour = min / 60;
-            table->setItem(8 + i, 1, new QTableWidgetItem(tr("%1:%2:%3.%4").arg(hour).arg(min).arg(sec).arg(msec)));
+            table->setItem(9 + i, 1, new QTableWidgetItem(tr("%1:%2:%3.%4").arg(hour).arg(min).arg(sec).arg(msec)));
         }
     }
 

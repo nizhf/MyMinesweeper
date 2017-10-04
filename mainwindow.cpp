@@ -303,6 +303,10 @@ void MainWindow::initData() {
             text = doc.createTextNode("lose");
             element.appendChild(text);
             elementDiff.appendChild(element);
+            element = doc.createElement("NP");
+            text = doc.createTextNode("0");
+            element.appendChild(text);
+            elementDiff.appendChild(element);
 
             for (int j = 0; j < 5; j++) {
                 element = doc.createElement(tr("min_time_%1").arg(j));
@@ -367,6 +371,7 @@ void MainWindow::initData() {
         else {
             statisticData->setStreakWin(false, diff);
         }
+        statisticData->setGameNP(elementDiff.firstChildElement("NP").text().toInt(), diff);
 
         for (int j = 0; j < 5; j++) {
             QDomElement gameElement = elementDiff.firstChildElement(tr("min_time_%1").arg(j));
@@ -374,7 +379,9 @@ void MainWindow::initData() {
             int gameYear = gameElement.firstChildElement(tr("year")).text().toInt();
             int gameMonth = gameElement.firstChildElement(tr("month")).text().toInt();
             int gameDay = gameElement.firstChildElement(tr("day")).text().toInt();
-            statisticData->addMinTimeGame(gameTime, gameDay, gameMonth, gameYear, diff);
+            if (gameTime != -1) {
+                statisticData->addMinTimeGame(gameTime, gameDay, gameMonth, gameYear, diff);
+            }
         }
     }
 }
@@ -438,6 +445,9 @@ void MainWindow::statisticUpdate(int d) {
         element.firstChild().setNodeValue(tr("lose"));
     }
 
+    element = elementDiff.firstChildElement("NP");
+    element.firstChild().setNodeValue(tr("%1").arg(statisticData->getGameNP(diff)));
+
     for (int i = 0; i < 5; i++) {
         element = elementDiff.firstChildElement(tr("min_time_%1").arg(i));
 
@@ -485,6 +495,9 @@ void MainWindow::gameWin() {
                 statisticData->setMaxWinningStreak(statisticData->getStreakNow(StatisticData::Easy), StatisticData::Easy);
             }
         }
+        if (countRightClick == 0) {
+            statisticData->setGameNP(statisticData->getGameNP(StatisticData::Easy) + 1, StatisticData::Easy);
+        }
         statisticData->addMinTimeGame(timeUsedInMsec, date.day(), date.month(), date.year(), StatisticData::Easy);
         break;
     case 2:
@@ -503,6 +516,9 @@ void MainWindow::gameWin() {
                 statisticData->setMaxWinningStreak(statisticData->getStreakNow(StatisticData::Normal), StatisticData::Normal);
             }
         }
+        if (countRightClick == 0) {
+            statisticData->setGameNP(statisticData->getGameNP(StatisticData::Normal) + 1, StatisticData::Normal);
+        }
         statisticData->addMinTimeGame(timeUsedInMsec, date.day(), date.month(), date.year(), StatisticData::Normal);
         break;
     case 3:
@@ -520,6 +536,9 @@ void MainWindow::gameWin() {
             if (statisticData->getStreakNow(StatisticData::Hard) > statisticData->getMaxWinningStreak(StatisticData::Hard)) {
                 statisticData->setMaxWinningStreak(statisticData->getStreakNow(StatisticData::Hard), StatisticData::Hard);
             }
+        }
+        if (countRightClick == 0) {
+            statisticData->setGameNP(statisticData->getGameNP(StatisticData::Hard) + 1, StatisticData::Hard);
         }
         statisticData->addMinTimeGame(timeUsedInMsec, date.day(), date.month(), date.year(), StatisticData::Hard);
         break;
