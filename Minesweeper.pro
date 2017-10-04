@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,13 +28,17 @@ SOURCES += main.cpp\
     boarddelegate.cpp \
     board.cpp \
     dialogwin.cpp \
-    dialoglose.cpp
+    dialoglose.cpp \
+    dialogstatistic.cpp \
+    statisticdata.cpp
 
 HEADERS  += mainwindow.h \
     boarddelegate.h \
     board.h \
     dialogwin.h \
-    dialoglose.h
+    dialoglose.h \
+    dialogstatistic.h \
+    statisticdata.h
 
 DISTFILES +=
 

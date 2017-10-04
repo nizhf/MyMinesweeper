@@ -25,6 +25,10 @@
 #include <QHeaderView>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <dialogstatistic.h>
+#include <statisticdata.h>
+#include <QFile>
+#include <QDomDocument>
 
 class MainWindow : public QMainWindow
 {
@@ -33,6 +37,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void initData();
+    void clearData();
+    void statisticUpdate(int d);
 
 private:
     QGridLayout *layoutMain;
@@ -51,6 +58,9 @@ private:
     QTime timeBegin;
     int timeUsedInMsec;
 
+    int difficulty;
+
+    StatisticData *statisticData;
 
     Board *board;
     QStandardItemModel *boardModel;
@@ -69,6 +79,8 @@ public slots:
     void newGame(bool noChange = false);
     void geometryRefresh();
     void viewRefresh();
+    void gameWin();
+    void gameLose();
 
 };
 
