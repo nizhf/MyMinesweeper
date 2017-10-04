@@ -303,7 +303,7 @@ void MainWindow::initData() {
             text = doc.createTextNode("lose");
             element.appendChild(text);
             elementDiff.appendChild(element);
-            element = doc.createElement("NP");
+            element = doc.createElement("NF");
             text = doc.createTextNode("0");
             element.appendChild(text);
             elementDiff.appendChild(element);
@@ -371,7 +371,7 @@ void MainWindow::initData() {
         else {
             statisticData->setStreakWin(false, diff);
         }
-        statisticData->setGameNP(elementDiff.firstChildElement("NP").text().toInt(), diff);
+        statisticData->setGameNF(elementDiff.firstChildElement("NF").text().toInt(), diff);
 
         for (int j = 0; j < 5; j++) {
             QDomElement gameElement = elementDiff.firstChildElement(tr("min_time_%1").arg(j));
@@ -445,8 +445,8 @@ void MainWindow::statisticUpdate(int d) {
         element.firstChild().setNodeValue(tr("lose"));
     }
 
-    element = elementDiff.firstChildElement("NP");
-    element.firstChild().setNodeValue(tr("%1").arg(statisticData->getGameNP(diff)));
+    element = elementDiff.firstChildElement("NF");
+    element.firstChild().setNodeValue(tr("%1").arg(statisticData->getGameNF(diff)));
 
     for (int i = 0; i < 5; i++) {
         element = elementDiff.firstChildElement(tr("min_time_%1").arg(i));
@@ -496,7 +496,7 @@ void MainWindow::gameWin() {
             }
         }
         if (countRightClick == 0) {
-            statisticData->setGameNP(statisticData->getGameNP(StatisticData::Easy) + 1, StatisticData::Easy);
+            statisticData->setGameNF(statisticData->getGameNF(StatisticData::Easy) + 1, StatisticData::Easy);
         }
         statisticData->addMinTimeGame(timeUsedInMsec, date.day(), date.month(), date.year(), StatisticData::Easy);
         break;
@@ -517,7 +517,7 @@ void MainWindow::gameWin() {
             }
         }
         if (countRightClick == 0) {
-            statisticData->setGameNP(statisticData->getGameNP(StatisticData::Normal) + 1, StatisticData::Normal);
+            statisticData->setGameNF(statisticData->getGameNF(StatisticData::Normal) + 1, StatisticData::Normal);
         }
         statisticData->addMinTimeGame(timeUsedInMsec, date.day(), date.month(), date.year(), StatisticData::Normal);
         break;
@@ -538,7 +538,7 @@ void MainWindow::gameWin() {
             }
         }
         if (countRightClick == 0) {
-            statisticData->setGameNP(statisticData->getGameNP(StatisticData::Hard) + 1, StatisticData::Hard);
+            statisticData->setGameNF(statisticData->getGameNF(StatisticData::Hard) + 1, StatisticData::Hard);
         }
         statisticData->addMinTimeGame(timeUsedInMsec, date.day(), date.month(), date.year(), StatisticData::Hard);
         break;

@@ -24,7 +24,7 @@ public:
         int maxWinningStreak, maxLosingStreak;
         int streakNow;
         bool streakWin;
-        int gameNP;
+        int gameNF;
     };
 
     int getMinTimeInMsec(int index, Difficulty diff) const;
@@ -54,8 +54,8 @@ public:
     bool getStreakWin(Difficulty diff) const;
     void setStreakWin(bool value, Difficulty diff);
 
-    int getGameNP(Difficulty diff) const;
-    void setGameNP(int value, Difficulty diff);
+    int getGameNF(Difficulty diff) const;
+    void setGameNF(int value, Difficulty diff);
 
     void clear(Difficulty diff);
 

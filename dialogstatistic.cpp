@@ -126,7 +126,7 @@ void DialogStatistic::initLayout(QTableWidget *table, StatisticData::Difficulty 
     }
     table->setItem(6, 1, new QTableWidgetItem(tr("%1").arg(data->getStreakNow(diff))));
     table->setItem(7, 0, new QTableWidgetItem(tr("No flag: ")));
-    table->setItem(7, 1, new QTableWidgetItem(tr("%1").arg(data->getGameNP(diff))));
+    table->setItem(7, 1, new QTableWidgetItem(tr("%1").arg(data->getGameNF(diff))));
 
     table->setItem(8, 0, new QTableWidgetItem(tr("Best 5 games:")));
     for (int i = 0; i < 5; i++) {

@@ -420,16 +420,16 @@ void StatisticData::setStreakWin(bool value, Difficulty diff)
     }
 }
 
-int StatisticData::getGameNP(Difficulty diff) const {
+int StatisticData::getGameNF(Difficulty diff) const {
     switch (diff) {
     case Easy:
-        return dataEasy.gameNP;
+        return dataEasy.gameNF;
         break;
     case Normal:
-        return dataNormal.gameNP;
+        return dataNormal.gameNF;
         break;
     case Hard:
-        return dataHard.gameNP;
+        return dataHard.gameNF;
         break;
     default:
         return false;
@@ -437,16 +437,16 @@ int StatisticData::getGameNP(Difficulty diff) const {
     }
 }
 
-void StatisticData::setGameNP(int value, Difficulty diff) {
+void StatisticData::setGameNF(int value, Difficulty diff) {
     switch (diff) {
     case Easy:
-        dataEasy.gameNP = value;
+        dataEasy.gameNF = value;
         break;
     case Normal:
-        dataNormal.gameNP = value;
+        dataNormal.gameNF = value;
         break;
     case Hard:
-        dataHard.gameNP = value;
+        dataHard.gameNF = value;
         break;
     default:
         break;
@@ -463,7 +463,7 @@ void StatisticData::clear(Difficulty diff) {
         dataEasy.maxLosingStreak = 0;
         dataEasy.streakNow = 0;
         dataEasy.streakWin = false;
-        dataEasy.gameNP = 0;
+        dataEasy.gameNF = 0;
         for (int i = 0; i < 5; i++) {
             dataEasy.minTimeInMsec[i] = -1;
             dataEasy.minTimeGameYear[i] = -1;
@@ -479,7 +479,7 @@ void StatisticData::clear(Difficulty diff) {
         dataNormal.maxLosingStreak = 0;
         dataNormal.streakNow = 0;
         dataNormal.streakWin = false;
-        dataNormal.gameNP = 0;
+        dataNormal.gameNF = 0;
         for (int i = 0; i < 5; i++) {
             dataNormal.minTimeInMsec[i] = -1;
             dataNormal.minTimeGameYear[i] = -1;
@@ -495,7 +495,7 @@ void StatisticData::clear(Difficulty diff) {
         dataHard.maxLosingStreak = 0;
         dataHard.streakNow = 0;
         dataHard.streakWin = false;
-        dataHard.gameNP = 0;
+        dataHard.gameNF = 0;
         for (int i = 0; i < 5; i++) {
             dataHard.minTimeInMsec[i] = -1;
             dataHard.minTimeGameYear[i] = -1;
