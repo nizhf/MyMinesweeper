@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <fstream>
 #include <vector>
+#include <string>
 #include "board.h"
 
 struct move {

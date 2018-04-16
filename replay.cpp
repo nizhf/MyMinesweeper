@@ -33,7 +33,7 @@ void Replay::setCurrentIndex(int value)
 
 int Replay::getCountMoves() const
 {
-    return moves.size();
+    return (int)moves.size();
 }
 
 struct move Replay::currentMove() {
