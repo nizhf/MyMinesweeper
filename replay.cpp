@@ -97,16 +97,27 @@ bool Replay::save(std::string filename) {
     std::sprintf(str, "%04X", difficulty);
     output += str;
 
-    for (auto iter = minePosition.begin(); iter != minePosition.end(); iter++) {
-        std::sprintf(str, "%04X", *iter);
+    for (auto iter : minePosition) {
+        std::sprintf(str, "%04X", iter);
         output += str;
     }
 
-    for (auto iter2 = moves.begin(); iter2 != moves.end(); iter2++) {
-        std::sprintf(str, "%02X%02X%04X", iter2->x, iter2->y, iter2->moveType);
+    for (auto iter : moves) {
+        std::sprintf(str, "%02X%02X%04X", iter.x, iter.y, iter.moveType);
         output += str;
     }
 
+//    for (auto iter = minePosition.begin(); iter != minePosition.end(); iter++) {
+//        std::sprintf(str, "%04X", *iter);
+//        output += str;
+//    }
+
+//    for (auto iter2 = moves.begin(); iter2 != moves.end(); iter2++) {
+//        std::sprintf(str, "%02X%02X%04X", iter2->x, iter2->y, iter2->moveType);
+//        output += str;
+//    }
+
+    output = Base64::encode(output);
     fileout << output;
     fileout.close();
 
@@ -123,6 +134,8 @@ bool Replay::load(std::string filename) {
     filein >> input;
 
     filein.close();
+
+    input = Base64::decode(input);
 
     int difficulty = std::stoi(input.substr(0, 3), 0, 16);
     int mineCount = 0;

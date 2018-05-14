@@ -5,6 +5,8 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <algorithm>
+#include "base64.h"
 #include "board.h"
 
 struct move {

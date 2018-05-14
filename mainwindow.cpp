@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
     setFixedWidth(40 * 9 + 40);
     this->setMouseTracking(true);
 
+
+
     //stylesheet for restart button (middle)
     ssRestart = tr("#btnRestart {"
                   "border-image: url(:/image/image/restart.png)"
@@ -36,6 +38,8 @@ MainWindow::MainWindow(QWidget *parent)
                "border-image: url(:/image/image/restart_press.png)"
                "}");
 
+
+
     //layout
     widgetMain = new QWidget(this);
     layoutMain = new QGridLayout;
@@ -48,67 +52,80 @@ MainWindow::MainWindow(QWidget *parent)
     boardView->setMouseTracking(true);
     layoutMain->addWidget(boardView, 1, 0, 9, 9);
 
+
+    //layout play
     layoutHeader = new QStackedLayout;
     layoutHeaderPlay = new QGridLayout;
+
     QPalette palLCD;
     palLCD.setColor(QPalette::Normal, QPalette::WindowText, Qt::red);
+
     lcdMineLeft = new QLCDNumber(this);
     lcdMineLeft->setFixedSize(QSize(100, 50));
     lcdMineLeft->setPalette(palLCD);
     lcdMineLeft->setSegmentStyle(QLCDNumber::Flat);
     layoutHeaderPlay->addWidget(lcdMineLeft, 0, 1, 1, 1);
+
     btnRestart = new QPushButton(this);
     btnRestart->setFixedSize(QSize(50, 50));
     btnRestart->setObjectName(tr("btnRestart"));
     btnRestart->setStyleSheet(ssRestart);
     layoutHeaderPlay->addWidget(btnRestart, 0, 4, 1, 1);
+
     lcdTimer = new QLCDNumber(this);
     lcdTimer->display(0);
     lcdTimer->setFixedSize(QSize(100, 50));
     lcdTimer->setPalette(palLCD);
     lcdTimer->setSegmentStyle(QLCDNumber::Flat);
+
     layoutHeaderPlay->addWidget(lcdTimer, 0, 7, 1, 1);
     headerPlay = new QWidget(this);
     headerPlay->setLayout(layoutHeaderPlay);
     layoutHeader->addWidget(headerPlay);
 
+
+    //layout replay
     layoutHeaderReplay = new QGridLayout;
+
     btnLast = new QPushButton("<<", this);
     btnLast->setFixedSize(QSize(50, 50));
     btnLast->setObjectName(tr("btnLast"));
-//    btnLast->setStyleSheet(ssRestart);
     layoutHeaderReplay->addWidget(btnLast, 0, 2, 1, 1);
+
     btnPause = new QPushButton("||", this);
     btnPause->setFixedSize(QSize(50, 50));
     btnPause->setObjectName(tr("btnPause"));
-//    btnPause->setStyleSheet(ssRestart);
     layoutHeaderReplay->addWidget(btnPause, 0, 4, 1, 1);
+
     btnNext = new QPushButton(">>", this);
     btnNext->setFixedSize(QSize(50, 50));
     btnNext->setObjectName(tr("btnNext"));
-//    btnNext->setStyleSheet(ssRestart);
     layoutHeaderReplay->addWidget(btnNext, 0, 6, 1, 1);
+
     btnOpenFile = new QPushButton("Open", this);
     btnOpenFile->setFixedSize(QSize(50, 50));
     btnOpenFile->setObjectName(tr("btnOpenFile"));
-//    btnOpenFile->setStyleSheet(ssRestart);
     layoutHeaderReplay->addWidget(btnOpenFile, 0, 0, 1, 1);
+
     btnTake = new QPushButton("Take", this);
     btnTake->setFixedSize(QSize(50, 50));
     btnTake->setObjectName(tr("btnTake"));
-//    btnTake->setStyleSheet(ssRestart);
     layoutHeaderReplay->addWidget(btnTake, 0, 8, 1, 1);
+
     headerReplay = new QWidget(this);
     headerReplay->setLayout(layoutHeaderReplay);
     layoutHeader->addWidget(headerReplay);
     layoutHeader->setCurrentIndex(0);
     layoutMain->addLayout(layoutHeader, 0, 0, 1, 9);
 
+
     statusLabel = new QLabel("Left: 0    Right: 0    Double: 0    Distance: 0");
     statusLabel->setMinimumWidth(this->width());
     statusLabel->setContentsMargins(15, 0, 0, 0);
     this->statusBar()->addWidget(statusLabel);
     this->statusBar()->setSizeGripEnabled(false);
+
+
 
     //minesweeper basic codes and view & delegate
     difficulty = 1;
@@ -120,6 +137,8 @@ MainWindow::MainWindow(QWidget *parent)
     viewRefresh();
     geometryRefresh();
     lcdMineLeft->display(board->getMineLeft());
+
+
 
     //Menu bar
     QMenuBar *menuBar = this->menuBar();
@@ -135,6 +154,8 @@ MainWindow::MainWindow(QWidget *parent)
     QAction *actionExit = menuStart->addAction("Exit");
     QAction *actionHelp = menuHelp->addAction("Help");
 
+
+
     //other attributes
     timer = new QTimer(this);
     timeUsed = 0;
@@ -147,53 +168,65 @@ MainWindow::MainWindow(QWidget *parent)
     statisticData = new StatisticData;
     initData();
 
+
     //Replay
     replay = new Replay;
+
+
+
 
     //signals and slots
     connect(timer, &QTimer::timeout, this, &MainWindow::timeIncrease); //timer
     connect(actionStart, &QAction::triggered, this, &MainWindow::newGame); //menu start
+
     //menu easy
-    connect(actionEasy, &QAction::triggered, [=](){
+    connect(actionEasy, &QAction::triggered, [&](){
         difficulty = 1;
         board->setDifficulty(difficulty);
         board->initBoard();
         geometryRefresh();
         newGame();
     });
+
     //menu normal
-    connect(actionNormal, &QAction::triggered, [=](){
+    connect(actionNormal, &QAction::triggered, [&](){
         difficulty = 2;
         board->setDifficulty(difficulty);
         board->initBoard();
         geometryRefresh();
         newGame();
     });
+
     //menu hard
-    connect(actionHard, &QAction::triggered, [=](){
+    connect(actionHard, &QAction::triggered, [&](){
         difficulty = 3;
         board->setDifficulty(difficulty);
         board->initBoard();        
         geometryRefresh();
         newGame();
     });
+
     //menu statistic
-    connect(actionStatistic, &QAction::triggered, [=](){
+    connect(actionStatistic, &QAction::triggered, [&](){
         DialogStatistic dialogStatistic(statisticData);
         int result = dialogStatistic.exec();
         if (result == QDialog::Accepted) {
             clearData();
         }
     });
+
     //menu exit
     connect(actionExit, &QAction::triggered, this, &MainWindow::close);
+
     //menu help
-    connect(actionHelp, &QAction::triggered, [=](){
-        QDialog dialogHelp;
+    connect(actionHelp, &QAction::triggered, [](){
+        DialogHelp dialogHelp;
         dialogHelp.exec();
     });
+
     //button restart
     connect(btnRestart, &QPushButton::clicked, this, &MainWindow::newGame);
+
     //board operation
     connect(boardDelegate, &BoardDelegate::leftClick, this, &MainWindow::leftClick);
     connect(boardDelegate, &BoardDelegate::rightClick, this, &MainWindow::rightClick);

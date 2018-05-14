@@ -12,11 +12,11 @@ BoardDelegate::BoardDelegate(QObject *parent) : QStyledItemDelegate(parent)
     timerRightPress = new QTimer(this);
     timerRightPress->setSingleShot(true);
     timerRightPress->setInterval(200);
-    connect(timerLeftPress, &QTimer::timeout, [=](){
+    connect(timerLeftPress, &QTimer::timeout, [&](){
         leftPress = false;
         emit leftClick(currentIndex);
     });
-    connect(timerRightPress, &QTimer::timeout, [=](){
+    connect(timerRightPress, &QTimer::timeout, [&](){
         rightPress = false;
         emit rightClick(currentIndex);
     });

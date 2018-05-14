@@ -30,4 +30,8 @@ OpeningMenu::OpeningMenu()
     connect(btnStart, &QPushButton::clicked, m_play, &MainWindow::show);
     connect(btnReplay, &QPushButton::clicked, m_replay, &MainWindow::show);
     connect(btnExit, &QPushButton::clicked, this, &OpeningMenu::close);
+    connect(btnHelp, &QPushButton::clicked, [](){
+        DialogHelp dialogHelp;
+        dialogHelp.exec();
+    });
 }

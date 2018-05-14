@@ -32,7 +32,9 @@ SOURCES += main.cpp\
     dialogstatistic.cpp \
     statisticdata.cpp \
     openingmenu.cpp \
-    replay.cpp
+    replay.cpp \
+    base64.cpp \
+    dialoghelp.cpp
 
 HEADERS  += mainwindow.h \
     boarddelegate.h \
@@ -42,7 +44,9 @@ HEADERS  += mainwindow.h \
     dialogstatistic.h \
     statisticdata.h \
     openingmenu.h \
-    replay.h
+    replay.h \
+    base64.h \
+    dialoghelp.h
 
 DISTFILES +=
 

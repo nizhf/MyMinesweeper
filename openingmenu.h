@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QGridLayout>
 #include "mainwindow.h"
+#include "dialoghelp.h"
 
 class OpeningMenu : public QDialog
 {

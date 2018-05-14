@@ -7,6 +7,7 @@
 #include "board.h"
 #include "dialogwin.h"
 #include "dialoglose.h"
+#include "dialoghelp.h"
 #include "replay.h"
 #include <QGridLayout>
 #include <QStackedLayout>

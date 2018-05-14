@@ -10,4 +10,7 @@
         <file>image/restart_press.png</file>
         <file>image/lose.png</file>
     </qresource>
+    <qresource prefix="/text">
+        <file>text/help.txt</file>
+    </qresource>
 </RCC>
